@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список блогов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .blog-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .blog-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .blog-card:hover {
+            transform: translateY(-4px);
+        }
+        .blog-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .blog-card-content {
+            padding: 15px;
+        }
+        .blog-card-content h2 {
+            font-size: 18px;
+            margin: 0 0 10px;
+            color: #222;
+        }
+        .blog-card-content p {
+            font-size: 14px;
+            color: #666;
+            margin: 0 0 10px;
+        }
+        .genre {
+            display: inline-block;
+            background: #007bff;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 14px;
+            background: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Все блоги</h1>
+    <div class="blog-container">
+        {% for b in blog %}
+            <div class="blog-card">
+                {% if b.image %}
+                    <img src="{{ b.image.url }}" alt="{{ b.title }}">
+                {% endif %}
+                <div class="blog-card-content">
+                    <h2>{{ b.title }}</h2>
+                    <p>{{ b.description|truncatewords:15 }}</p>
+                    <span class="genre">{{ b.genre_blog }}</span><br>
+                    <a href="{% url 'blog_detail' b.id %}" class="btn">Читать далее</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>Блогов пока нет.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
