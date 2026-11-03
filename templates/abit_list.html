@@ -1,0 +1,13 @@
+<a href="{% url 'add_abit' %}">Добавить абитуриента</a>
+
+{% for i in abit %}
+
+<h1>ФИО - {{ i.full_name }}</h1>
+<img src="{{ i.photo.url }}" alt="{{ i.full_name }}" width="100" height="100">
+<a href="{{ i.document_ort.url}}" target="_blank" download="">Скачать документ</a>
+<p>Факультет: {{ i.facultat }}</p>
+<p>Дата Регистрации: {{ i.created_at }}</p>
+
+<a href="/abit_list/{{ i.id }}/drop/">Удалить</a>
+<a href="/abit_list/{{ i.id }}/edit/">Изменить</a>
+{% endfor %}
