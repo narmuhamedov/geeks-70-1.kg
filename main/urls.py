@@ -9,6 +9,8 @@ urlpatterns = [
     path('', include("blog.urls")),
     path('', include("cars.urls")),
     path('', include("abituruents.urls")),
+    path('', include("users.urls")),
+    path('', include("captcha.urls")),
 ]
 
 

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'blog',
     'cars',
     'abituruents',
+    'users',
+    'captcha',
 ]
 
 MIDDLEWARE = [
