@@ -11,6 +11,8 @@ class Blog(models.Model):
     )
     genre_blog = models.CharField(max_length=100, choices=GENRE_BLOG, verbose_name='укажите жанр')
     created_at = models.DateTimeField(auto_now_add=True)
+    views = models.PositiveIntegerField(default=0, null=True)
+
 
     class Meta:
         verbose_name = 'блог'

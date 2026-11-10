@@ -73,6 +73,17 @@
     </style>
 </head>
 <body>
+
+    <form action="{% url 'search' %}" method="GET" enctype="multipart/form-data">
+        <input type="search" type="text" name="q" placeholder="ПОИСК">
+        <button type="submit">ПОИСК</button>
+    </form>
+
+    {% if not_found %}
+      <p>По запросу «{{ blog }}» ничего не найдено.</p>
+    {% endif %}
+
+
     <h1>Все блоги</h1>
     <div class="blog-container">
         {% for b in blog %}
@@ -91,5 +102,38 @@
             <p>Блогов пока нет.</p>
         {% endfor %}
     </div>
+
+    <!-- Пагинация -->
+{% if blog.has_other_pages %}
+    <div class="pagination">
+
+        <!-- Кнопка "Назад" -->
+        {% if blog.has_previous %}
+            <a href="?page={{ blog.previous_page_number }}">&laquo; Назад</a>
+        {% else %}
+            <span class="disabled">&laquo; Назад</span>
+        {% endif %}
+
+        <!-- Номера страниц -->
+        {% for num in blog.paginator.page_range %}
+            {% if blog.number == num %}
+                <span class="current">{{ num }}</span>
+            {% elif num > blog.number|add:'-3' and num < blog.number|add:'3' %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Кнопка "Вперёд" -->
+        {% if blog.has_next %}
+            <a href="?page={{ blog.next_page_number }}">Вперёд &raquo;</a>
+        {% else %}
+            <span class="disabled">Вперёд &raquo;</span>
+        {% endif %}
+
+    </div>
+{% endif %}
+
+
+
 </body>
 </html>
